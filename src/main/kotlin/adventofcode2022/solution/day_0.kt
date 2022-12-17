@@ -2,10 +2,8 @@ package adventofcode2022.solution
 
 import adventofcode2022.util.readDay
 
-private const val DAY_NUM = 0
-
 fun main() {
-    Day0(DAY_NUM.toString()).solve()
+    Day0("0").solve()
 }
 
 class Day0(private val num: String) {
