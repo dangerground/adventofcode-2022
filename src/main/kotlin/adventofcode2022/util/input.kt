@@ -2,7 +2,7 @@ package adventofcode2022.util
 
 import java.io.File
 
-fun readDay(day: Int) =
+fun readDay(day: String) =
     object {}::class.java.classLoader
         .getResource("input_$day.txt").file
         .let { File(it).readText() }

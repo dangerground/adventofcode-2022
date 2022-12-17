@@ -6,21 +6,28 @@ import adventofcode2022.util.readDay
 private const val DAY_NUM = 1
 
 fun main() {
-    val inputText = readDay(DAY_NUM)
-    println("Day $DAY_NUM")
-
-    println("Part 1 solution: ${solution1(inputText)}")
-    println("Part 2 solution: ${solution2(inputText)}")
+    Day1(DAY_NUM.toString()).solve()
 }
 
-fun solution1(inputText: String): Long? {
-    val input = batchedList(inputText.lines().map { it.toLongOrNull() })
+class Day1(private val num: String) {
 
-    return input.maxOfOrNull { batch -> batch.sumOf { it ?: 0 } }
-}
+    private val inputText = readDay(num)
 
-fun solution2(inputText: String): Long? {
-    val input = batchedList(inputText.lines().map { it.toLongOrNull() })
+    fun solve() {
+        println("Day $num Solution")
+        println("* Part 1: ${solution1()}")
+        println("* Part 2: ${solution2()}")
+    }
 
-    return input.map { batch -> batch.sumOf { it ?: 0 } }.sortedDescending().take(3).sum()
+    fun solution1(): Long {
+        val input = batchedList(inputText.lines().map { it.toLongOrNull() })
+
+        return input.maxOfOrNull { batch -> batch.sumOf { it ?: 0 } }!!
+    }
+
+    fun solution2(): Long {
+        val input = batchedList(inputText.lines().map { it.toLongOrNull() })
+
+        return input.map { batch -> batch.sumOf { it ?: 0 } }.sortedDescending().take(3).sum()
+    }
 }
