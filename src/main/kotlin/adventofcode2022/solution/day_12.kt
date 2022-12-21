@@ -86,7 +86,22 @@ class Day12(private val num: String) {
     }
 
     fun solution2(): Long {
-        return 0
+
+        val (map, start, end) = parse()
+
+        val starts = mutableListOf<Point>()
+
+        for (y in 0 until map.height()) {
+            for (x in 0 until map.width()) {
+                if (map.get(x, y) == 'a'.code) {
+                    starts.add(Point(x, y))
+                }
+            }
+        }
+
+        val edges = findAllowedEdges(map)
+
+        return starts.map { edges.route(it, end)}.filter { it > 0 }.minOf { it }.toLong()
     }
 }
 
