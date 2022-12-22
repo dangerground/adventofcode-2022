@@ -26,6 +26,6 @@ class Day13Test : StringSpec({
     }
 
     "solution2" {
-        day.solution2() shouldBe 0
+        day.solution2() shouldBe 140
     }
 })

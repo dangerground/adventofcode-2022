@@ -32,8 +32,23 @@ class Day13(private val num: String) {
             .sum()
     }
 
-    fun solution2(): Long {
-        return 0
+    fun solution2(): Int {
+        val first = "[[2]]".parsePacket()
+        val second = "[[6]]".parsePacket()
+
+        val sorted = batchedList(inputText.lines()).flatMap {
+            val left = it[0].parsePacket()
+            val right = it[1].parsePacket()
+            listOf(left, right)
+        }.toMutableList()
+            .also { it.add(first); it.add(second) }
+            .sorted()
+
+        val result = sorted
+            .mapIndexed { index, it -> Pair(index+1, it.compareTo(first) == 0 || it.compareTo(second) == 0) }
+            .filter { it.second }
+
+        return result.first().first * result.last().first
     }
 }
 
@@ -99,7 +114,7 @@ data class Entry(
     }
 
     override fun compareTo(other: Entry): Int {
-        println("- Compare $this vs $other")
+ //       println("- Compare $this vs $other")
         if (num != null && other.num != null) {
             //println("num ${num.compareTo(other.num)}")
             return num.compareTo(other.num)
@@ -111,13 +126,13 @@ data class Entry(
         }
 
         if (list == null) {
-            println("- Mixed types; convert left to [$this] and retry comparison")
+//            println("- Mixed types; convert left to [$this] and retry comparison")
 
             return Entry(list = mutableListOf(this)).compareTo(other)
         }
 
         if (other.list == null) {
-            println("- Mixed types; convert right to [$other] and retry comparison")
+  //          println("- Mixed types; convert right to [$other] and retry comparison")
             return this.compareTo(Entry(list = mutableListOf(other)))
         }
 
